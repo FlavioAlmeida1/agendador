@@ -1,10 +1,7 @@
 package com.flavio.projetoagendador.infraestructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 @Getter
@@ -13,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "endereco")
-
+@Builder
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +21,14 @@ public class Endereco {
     private Long numero;
     @Column(name = "complemento", length = 10)
     private String complemento;
+    @Column(name = "Bairro")
+    private String bairro;
     @Column(name = "cidade", length = 150)
     private String cidade;
     @Column(name = "estado", length = 2)
     private String estado;
     @Column(name = "CEP", length = 10)
     private String cep;
+    @Column(name = "usuario_id")
+    private Long usuarioId;
 }
