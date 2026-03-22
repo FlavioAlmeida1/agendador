@@ -1,7 +1,11 @@
 package com.flavio.projetoagendador.business;
 
 import com.flavio.projetoagendador.business.converter.UsuarioConverter;
+import com.flavio.projetoagendador.business.dto.EnderecoDTO;
+import com.flavio.projetoagendador.business.dto.TelefoneDTO;
 import com.flavio.projetoagendador.business.dto.UsuarioDTO;
+import com.flavio.projetoagendador.infraestructure.entity.Endereco;
+import com.flavio.projetoagendador.infraestructure.entity.Telefone;
 import com.flavio.projetoagendador.infraestructure.entity.Usuario;
 import com.flavio.projetoagendador.infraestructure.exception.ConflictException;
 import com.flavio.projetoagendador.infraestructure.exception.ResourceNotFoundException;
@@ -81,6 +85,23 @@ public class UsuarioService {
         // Salvou os dados do usuário convertido e depois pegou o retorno e converteu para UsuarioDTO.
         return usuarioConverter.paraUsuarioDTO(usuarioRepository.save(usuario));
 
+    }
+    public EnderecoDTO atualizaEndereco(Long idEndereco, EnderecoDTO enderecoDTO){
+        Endereco entity = enderecoRepository.findById(idEndereco).orElseThrow(()->
+                new ResourceNotFoundException("Id não encontrado! " + idEndereco));
+
+        Endereco endereco = usuarioConverter.updateEndereco(enderecoDTO, entity);
+
+        return usuarioConverter.paraEnderecoDTO(enderecoRepository.save(endereco));
+
+    }
+    public TelefoneDTO atualizaTelefone(Long idTelefone, TelefoneDTO telefoneDTO){
+        Telefone entity = telefoneRepository.findById(idTelefone).orElseThrow(() ->
+                 new ResourceNotFoundException("Id não encontrado! " + idTelefone));
+
+        Telefone telefone = usuarioConverter.updateTelefone(telefoneDTO, entity);
+
+        return usuarioConverter.paraTelefoneDTO(telefoneRepository.save(telefone));
     }
 
 
