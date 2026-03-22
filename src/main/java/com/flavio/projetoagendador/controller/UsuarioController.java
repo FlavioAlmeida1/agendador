@@ -1,6 +1,8 @@
 package com.flavio.projetoagendador.controller;
 
 import com.flavio.projetoagendador.business.UsuarioService;
+import com.flavio.projetoagendador.business.dto.EnderecoDTO;
+import com.flavio.projetoagendador.business.dto.TelefoneDTO;
 import com.flavio.projetoagendador.business.dto.UsuarioDTO;
 import com.flavio.projetoagendador.infraestructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,23 @@ public class UsuarioController {
     public ResponseEntity<Void> deletaUsuarioPorEmail(@PathVariable String email) {
         usuarioService.deletarUsuarioPorEmail(email);
         return ResponseEntity.ok().build();
+
+    }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO>atualizaUsuario(@RequestBody UsuarioDTO dto,
+                                                     @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, dto));
+    }
+    @PutMapping("/Endereco")
+    public ResponseEntity<EnderecoDTO>atualizaEndereco(@RequestBody EnderecoDTO dto,
+                                                       @RequestParam("id") Long id){
+        return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto));
+    }
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDTO>atualizaTelefone(@RequestBody TelefoneDTO dto,
+                                                       @RequestParam("id")Long id){
+        return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto));
 
     }
 }
