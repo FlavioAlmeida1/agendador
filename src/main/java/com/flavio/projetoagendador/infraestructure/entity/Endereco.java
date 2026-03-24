@@ -30,5 +30,5 @@ public class Endereco {
     @Column(name = "CEP", length = 10)
     private String cep;
     @Column(name = "usuario_id")
-    private Long usuarioId;
+    private Long usuario_id;
 }
